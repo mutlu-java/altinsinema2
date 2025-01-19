@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{movie.title}} </title>
+    <!-- CSS Stil Dosyasına Bağlantı -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
+    
+    {% load static %}
+<link rel="stylesheet" href="{% static 'films/styles.css' %}">
+{% load static %}
+<link rel="stylesheet" href="{% static 'films/mp2style.css' %}">
+
+</head>
+<body>
+   <main class="main-content">
+   
+    <header>
+        <a href="{% url 'movie_list' %}">  <h1 style="display: inline;">Altın<span    style="color: #FFD700;">Sinema</span></h1></a>
+        
+        <div class="search-bar">
+            <input id="search-input" type="text" placeholder="Search for movies ...">
+            <button id="search-button">
+                <span class="material-symbols-outlined">
+                search
+                 </span>
+            </button>
+            <div id="search-results" class="search-results"></div>
+       </div>
+          
+          <div class="user-menu">
+              <a href="#">Login</a> | <a href="#">Sign Up</a>
+          </div>
+          
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="{% url 'movie_list' %}">Anasayfa</a></li>
+            <li><a href="#">Film Arşivi</a></li>
+            <li><a href="#">2023 Filmleri</a></li>
+            <li><a href="#">2024 Filmleri</a></li>
+            <li><a href="#">Diziler</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Hakkımızda</a></li>
+         
+        </ul>
+    </nav>
+
+    <!-- Ana İçerik Alanı -->
+    <div class="video">
+        {{ movie.iframe_url|safe }}
+       
+     </div>
+
+     
+       
+
+    <div class="movie-container">
+        <div class="movie-poster">
+            <img src="{% if movie.image %}{{ movie.image.url }}{% elif movie.poster_url %}{{ movie.poster_url }}{% else %}/static/default.jpg{% endif %}" alt="{{ movie.title }} Posteri">
+            <button class="add-btn">+ Ekle</button>
+            <div class="share-buttons">
+                <button>Facebook'ta Paylaş</button>
+                <button>Twitter'da Paylaş</button>
+            </div>
+        </div>
+    
+
+
+
+
+    <div class="movie-details">
+        <div class="movie-title">
+            <h1>
+                {% if movie.title %}{{ movie.title }} – {% endif %}
+                {{ movie.original_title }}
+            </h1>
+            <span class="rating">{{ movie.imdb_score }} <span class="imdb">IMDb Puanı</span></span>
+        </div>
+        <ul class="movie-details-ul">
+            <li>Yapım Yılı: {{ movie.release_year }}</li>
+            <li>Ülkeler: 
+                {% if movie.countries.all %}
+                    {% for country in movie.countries.all %}
+                        {{ country.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                {% else %}
+                    Bilinmiyor
+                {% endif %}
+            </li>
+            <li>Yapım Şirketleri: 
+                {% if movie.production_companies.all %}
+                    {% for company in movie.production_companies.all %}
+                        {{ company.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                {% else %}
+                    Bilinmiyor
+                {% endif %}
+            </li>
+            <li>Film Süresi: {{ movie.duration }} dakika</li>
+        </ul>
+    
+        <div class="category">
+            <p>Kategori: 
+                {% if movie.categories.all %}
+                    {% for category in movie.categories.all %}
+                        {{ category.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                {% else %}
+                    Bilinmiyor
+                {% endif %}
+            </p>
+        </div>
+    
+        <div class="credits">
+            <p>Yönetmen: 
+                {% if movie.directors.all %}
+                    {% for director in movie.directors.all %}
+                        {{ director.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                {% else %}
+                    Bilinmiyor
+                {% endif %}
+            </p>
+            <p>Senaryo: 
+                {% if movie.screenwriters.all %}
+                    {% for writer in movie.screenwriters.all %}
+                        {{ writer.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                {% else %}
+                    Bilinmiyor2
+                {% endif %}
+            </p>
+            <p>Oyuncular: 
+                {% if movie.actors.all %}
+                    {% for actor in movie.actors.all %}
+                        {{ actor.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                {% else %}
+                    Bilinmiyor
+                {% endif %}
+            </p>
+        </div>
+    
+        <div class="description">
+            <p>{{ movie.description }}</p>
+        </div>
+    </div>
+    
+    
+    <div>
+    
+  
+   
+</main>
+<footer>   
+   
+    <ul style = "list-style-type: none;">
+        <li style = "display:inline" ><a href="#">Gizlilik Politikası</a></li>
+        <li style = "display:inline" ><a href="#">Kullanım Şartları</a></li>
+    </ul>
+   
+
+    <a href={% url 'movie_list' %} style="display: inline;" class="footer-col-1"> 
+          <h1 style=" display: inline-block;"  >Altın 
+           
+            <span style="color: #FFD700;">
+                Sinema
+            </span>
+          </h1>
+    </a>
+    <p class="footer-col-2"> &copy; altinsinema.com Tüm Hakları Saklıdır.</p>
+    
+    <p style="max-width: 200px ; text-indent: 5% ;" class="footer-col-3">
+        Telif Hakkı: Bu sitede yer alan tüm materyaller, altinsinema.com'a aittir. İzinsiz kullanılamaz. altinsinema.com, 5651 sayılı yasada tanımlanan yer sağlayıcı olarak hizmet vermektedir. Telif hakkına konu olan eserlerin yasal olmayan bir biçimde paylaşıldığını ve yasal haklarının çiğnendiğini düşünen hak sahipleri veya meslek birlikleri, Hak İhlali Bildirimi sayfasından bize ulaşabilirler.
+    </p>
+</footer>
+<script>
+    const searchInput = document.getElementById('search-input');
+    const searchResults = document.getElementById('search-results');
+    
+    searchInput.addEventListener('input', function() {
+        const query = searchInput.value;
+    
+        if (query.length > 1) { // En az 2 karakter girildiğinde arama yap
+            fetch(`/search-movies/?query=${query}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Arama sonuçlarını temizle
+                    searchResults.innerHTML = ''; // Temizleme
+                    const resultList = document.createElement('ul'); // `ul` elemanı oluştur
+        
+                    if (data.filmler.length > 0) {
+                        data.filmler.forEach(film => {
+                            const resultItem = document.createElement('li'); // `li` elemanı oluştur
+                            resultItem.classList.add('search-result');
+                            resultItem.innerHTML = `
+                                <img src="/media/${film.image}" alt="${film.title}" style="width: 50px; height: 75px; vertical-align: middle; ">
+                                <span style="font:8px;">${film.title} (${film.release_year}) - IMDB: ${film.imdb_score}</span>
+                            `;
+                            resultItem.addEventListener('click', () => {
+                                // Detay sayfasına yönlendir
+                                window.location.href = `/movies/${film.id}/`;
+                            });
+                            resultList.appendChild(resultItem); // `li` elemanını `ul` içine ekle
+                        });
+                        searchResults.appendChild(resultList); // `ul` elemanını `searchResults` içine ekle
+                    } else {
+                        searchResults.innerHTML = '<div>No results found</div>';
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        } else {
+            searchResults.innerHTML = ''; // Arama kutusu boşsa sonuçları temizle
+        }
+    });
+</script>
+</body>
+</html>
