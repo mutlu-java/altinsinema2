@@ -57,12 +57,12 @@
             <div class="movie-item">
                 <a href="{% url 'movie_detail' movie.id %}">
                     <img 
-    src="{% if movie.image %}{{ movie.image.url }}{% elif movie.poster_url %}{{ movie.poster_url }}{% else %}/static/default.jpg{% endif %}" 
-    alt="{{ movie.original_title }}" 
-    class="movie-poster">
+                        src="{% if movie.image %}{{ movie.image.url }}{% elif movie.poster_url %}{{ movie.poster_url }}{% else %}/static/default.jpg{% endif %}" 
+                        alt="{{ movie.original_title }}" 
+                        class="movie-poster">
 
                     {% comment %} <img src="{{ movie.image.url }}" alt="{{ movie.title }}"> {% endcomment %}
-                    <p>{{ movie.title }}-{{movie.original_title}}</p>
+                    <p id="pmovietitle">{{ movie.title }}   {{movie.original_title}}</p>
                 </a>
             </div>
         {% endfor %}
@@ -153,7 +153,7 @@
                             const resultItem = document.createElement('li'); // Create `li` element
                             resultItem.classList.add('search-result');
     
-                            // Determine the image source (media or poster_url)
+                            // Determines the image source (media or poster_url)
                             const imageUrl = film.image 
                                 ? `/media/${film.image}` 
                                 : film.poster_url;
@@ -180,87 +180,7 @@
     });
     
 </script>
-    {% comment %} <script>
-        const searchInput = document.getElementById('search-input');
-        const searchResults = document.getElementById('search-results');
-        
-        searchInput.addEventListener('input', function() {
-            const query = searchInput.value;
-        
-            if (query.length > 1) { // En az 2 karakter girildiğinde arama yap
-                fetch(`/search-movies/?query=${query}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        // Arama sonuçlarını temizle
-                        searchResults.innerHTML = ''; // Temizleme
-                        const resultList = document.createElement('ul'); // `ul` elemanı oluştur
-            
-                        if (data.filmler.length > 0) {
-                            data.filmler.forEach(film => {
-                                const resultItem = document.createElement('li'); // `li` elemanı oluştur
-                                resultItem.classList.add('search-result');
-                                resultItem.innerHTML = `
-                                    <img src="/media/${film.image}" alt="${film.title}" style="width: 50px; height: 75px; vertical-align: middle; ">
-                                    <span style="font:8px;">${film.title} (${film.release_year}) - IMDB: ${film.imdb_score}</span>
-                                `;
-                                resultItem.addEventListener('click', () => {
-                                    // Detay sayfasına yönlendir
-                                    window.location.href = `/movies/${film.id}/`;
-                                });
-                                resultList.appendChild(resultItem); // `li` elemanını `ul` içine ekle
-                            });
-                            searchResults.appendChild(resultList); // `ul` elemanını `searchResults` içine ekle
-                        } else {
-                            searchResults.innerHTML = '<div>No results found</div>';
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-            } else {
-                searchResults.innerHTML = ''; // Arama kutusu boşsa sonuçları temizle
-            }
-        });
-    </script>
-     {% endcomment %}
-    {% comment %} <script>
-        const searchInput = document.getElementById('search-input');
-        const searchResults = document.getElementById('search-results');
-    
-        searchInput.addEventListener('input', function() {
-            const query = searchInput.value;
-    
-            if (query.length > 1) { // En az 2 karakter girildiğinde arama yap
-                fetch(`/search-movies/?query=${query}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        // Arama sonuçlarını temizle
-                        searchResults.innerHTML = '';
-                        if (data.filmler.length > 0) {
-                            data.filmler.forEach(film => {
-                                const resultDiv = document.createElement('div');
-                                resultDiv.classList.add('search-result');
-                                resultDiv.innerHTML = `
-                                    <img src="/media/${film.image}" alt="${film.title}" style="width: 50px; height: 75px; vertical-align: middle; margin-left:15vh;">
-                                    <span>${film.title} (${film.release_year}) - IMDB: ${film.imdb_score}</span>
-                                `;
-                               document.body.appendChild(resultDiv);
-                                resultDiv.addEventListener('click', () => {
-                                    // Detay sayfasına yönlendir
-                                    window.location.href = `/movies/${film.id}/`;
-                                });
-                                searchResults.appendChild(resultDiv);
-                            });
-                        } else {
-                            searchResults.innerHTML = '<div>No results found</div>';
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-            } else {
-                searchResults.innerHTML = ''; // Arama kutusu boşsa sonuçları temizle
-            }
-        });
 
-    </script> {% endcomment %}
-    
  
 </body>
 </html>

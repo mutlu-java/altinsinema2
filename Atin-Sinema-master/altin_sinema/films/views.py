@@ -67,7 +67,7 @@ def search_movies(request):
             Q(title__icontains=query) | 
             Q(original_title__icontains=query) | 
             Q(description__icontains=query)
-        )[:8]  # Get only the first 8 matches
+        )[:5]  # Get only the first 8 matches
     else:
         filmler = Movie.objects.none()  # Return an empty QuerySet
 

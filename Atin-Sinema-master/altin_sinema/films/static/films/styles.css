@@ -88,7 +88,7 @@ nav a:hover {
    color: var(--text-color);  }
   
 .container{
-    display: grid;
+  display: grid;
   grid-template-columns: 3fr 1.5fr; /* Main content (movie grid) takes 3 fractions, sidebar takes 1.5 */
   gap: 20px; /* Space between grid and sidebar */
   padding: 20px;
@@ -103,6 +103,9 @@ nav a:hover {
     gap: 20px;
     padding: 20px;
     
+}
+#pmovietitle{
+    font-size:14px;
 }
 
 .movie-item {
@@ -341,7 +344,17 @@ footer {
 }
  /*
 Ekran genişliği 600px veya daha küçük olduğunda stil kuralları */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+
+    .video { 
+        width: 100%; /* Videoyu tam genişlikte yapar */
+       /* max-width: 720px; /* Maksimum genişliği belirler */
+        display: block;
+        margin:  auto; /* Ortalar */
+        height: auto;
+        margin: 0px;
+    }
+
     .movie-list {
         margin: 20px; /* Kenar boşluklarını küçült */
         grid-template-columns: repeat(3,1fr); /* Tek sütun düzeni */
@@ -350,67 +363,102 @@ Ekran genişliği 600px veya daha küçük olduğunda stil kuralları */
     .movie-item {
         padding: 5px; /* Paddingi küçült */
     }
-
-    .search-bar input {
-        width: calc(100% - 110px); /* Arama çubuğunu ekran genişliğine göre ayarla */
+   
+   
+    header {
+        
+        display: flex;
+        justify-content: space-around;
+    
+        padding: 15px 0px 15px 0px;
+        
+        background-color: var(--primary-color);
+        overflow: visible;
     }
-
-    .search-bar button {
-        width: 100px; /* Düğme genişliğini küçült */
-    }
+   
 
     nav{
         display:none;
     }
-    .sidebar {
-        width: 100%; /* Yan menüyü ekran genişliğine göre ayarla */
-        position: static; /* Yan menüyü normal akışa al */
-        height: auto; /* Yüksekliği otomatik ayarla */
-    }
-    
-    .user-menu {
-        float: none; /* Float özelliğini kaldır */
-        text-align: center; /* Menü öğelerini ortala */
-    }
-
-    .user-menu a {
-        display: block; /* Menü öğelerini blok olarak göster */
-        margin: 10px 0; /* Marginleri dikey olarak ayarla */
-    }
-}
-
-/* Ekran genişliği 768px veya daha küçük olduğunda stil kuralları */
-@media (max-width: 768px) {
-    .container {
-        grid-template-columns: 1fr; /* Tek sütun düzeni */
-    }
-    .movie-list {
-        margin: 0px 0px; /* Kenar boşluklarını küçült */
-        grid-template-columns:1fr 1fr 1fr   ; /* Dört sütun düzeni */
-    }
-
-    .movie-item img { 
-        max-width: 100%; /* Resimlerin genişliğini sınırlama */
-    }
-
-    
-    
-    .user-menu{
+    .container{
         
-        margin-left: auto;
+        grid-template-columns: 1fr;
     }
-    .user-menu a{
-        display: inline;
+    .movie-list{
+        gap: 5px;
     }
-    .pagination {
-        background-color: #333;
-       
+    .kategori-sidebar{
+        display: none;
+    }
+    .user-menu {
+        display : none;
+    }
+ 
+    header h1{
+        font-size: 20px;
     }
     
-    .kategori-sidebar {
-        display: none; /* Kategori menüsünü gizle */
-    }
+    
+  
+.search-bar {
+    position: relative; 
+    display: flex;
+    justify-content: center;
+    
+    background-color: #dce1eb; /* Açık gri-mavi ton */
+    border-radius: 25px; /* Yuvarlatılmış köşeler */
+    padding: 2px 10px;
+    min-width: 200px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+    overflow: visible;
+      
+  }
+  
+  .search-bar input {
+      background: transparent;
+      padding: 2px;
+      border-radius: 5px;
+      flex: 1;
+      border: none;
+      background: transparent;
+      outline: none;
+      color: #333;
+  }
+  
+  .search-bar button {
+  
+      border: none;
+      background: none;
+      cursor: pointer;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  
+  .search-bar button svg {
+      color: #555;
+      font-size: 20px;
+  }
+  .search-bar button svg:hover {
+      color: black;
+      
+  }
+  
+  .search-results {
+      position : absolute;
+      top:100%;
+      background-color:var(--footer-color);
+      display: block;
+      overflow: auto;
+      
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      z-index: 999;
+      
+  }
 }
+
 
 
 

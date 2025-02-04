@@ -23,11 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-i#1(yc0+*zl7xj77gxs(v!$l1j3ye*_2d#$pkh@rdyhcetbukk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
+DEBUG = True
 
-# ALLOWED_HOSTS = []
-DEBUG = False
-ALLOWED_HOSTS = ['altinsinema.pythonanywhere.com']
+ALLOWED_HOSTS = []
+# DEBUG = False
+# ALLOWED_HOSTS = ['altinsinema.pythonanywhere.com']
 
 
 # Application definition
@@ -114,6 +114,18 @@ USE_I18N = True
 
 USE_TZ = True
 
+import os
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("railway"),
+        "USER": os.getenv("postgres"),
+        "PASSWORD": os.getenv("bHDLNbtVHSWIkxltiYLtpLwFoiwQkJcZ"),
+        "HOST": os.getenv("postgres.railway.internal"),
+        "PORT": os.getenv("5432"),
+    }
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
@@ -132,3 +144,6 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app"] # Vercel için genişletilmiş erişim
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
